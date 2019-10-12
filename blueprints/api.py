@@ -3,7 +3,7 @@ from flask import Blueprint
 from time import time
 from flask_cors import cross_origin
 from backend.userddbconn import userddbconn
-
+from backend import backend
 # create and return out API to tie to our app in hackuiowa/app.py
 def getapibp():
 
@@ -37,17 +37,15 @@ def getapibp():
             parser.add_argument('username', required=True)
             parser.add_argument('password', required=True)
             parser.add_argument('email')
-            parser.add_argument('delete', type=int, default='0')
             args = parser.parse_args()
-            if args['delete'] == 1:
+            if args['action'].upper() == 'D':    # delete user
                 val = udb.deleteUser(**args)
-            else:
-                if args['action'].upper() == 'S':
-                    if args.get('email') is None:
-                        return {'error': 'EMAIL field missing. required for signup'}
-                    val = udb.signUpUser(**args)
-                if args['action'].upper() == 'L':
-                    val = udb.signInUser(**args)
+            elif args['action'].upper() == 'S':  # signup user
+                if args.get('email') is None:
+                    return {'error': 'email field missing. required for signup'}
+                val = udb.signUpUser(**args)
+            elif args['action'].upper() == 'L':  # login user
+                val = udb.logInUser(**args)
             return val
 
     @api.route('/weather')
@@ -55,10 +53,9 @@ def getapibp():
 
         def get(self):
             ''' user GETs weather info for themselves '''
-            parser.add_argument('latlong', required=True)
+            parser.add_argument('latlong', required=False)
             args = parser.parse_args()
-            lat, long = args['latlong'].split(',')
-            return {}
+            return backend.rainfall()
 
 
     return api_bp
