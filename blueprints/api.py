@@ -42,7 +42,7 @@ def getapibp():
             if args['delete'] == 1:
                 val = udb.deleteUser(**args)
             else:
-                if arg['action'].upper() == 'S':
+                if args['action'].upper() == 'S':
                     if args.get('email') is None:
                         return {'error': 'EMAIL field missing. required for signup'}
                     val = udb.signUpUser(**args)
