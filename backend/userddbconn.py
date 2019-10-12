@@ -63,8 +63,8 @@ class userddbconn(ddbconn):
         '''
         u = self.getUser(**kw)
         if u.get('Count', -1) > 0:
-            return u.get('Items')[0]
-        return 0
+            return {'Response': 1, 'meta': u.get('Items')[0]}
+        return {'Response': 0}
 
     def signUpUser(self, **kw):
         '''
