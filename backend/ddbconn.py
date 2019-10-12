@@ -16,9 +16,9 @@ class db:
         self.res = boto3.resource(
                         'dynamodb',
                         aws_access_key_id=os.environ.get(
-                                            'AWS_SKIPPYELVIS_STONESOUP_ACCESS'),
+                                            'access'),
                         aws_secret_access_key=os.environ.get(
-                                            'AWS_SKIPPYELVIS_STONESOUP_SECRET'),
+                                            'secret'),
                         region_name='us-west-1'
                     )
 
