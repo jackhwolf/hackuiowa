@@ -50,4 +50,15 @@ def getapibp():
                     val = udb.signInUser(**args)
             return val
 
+    @api.route('/weather')
+    class weather(Resource):
+
+        def get(self):
+            ''' user GETs weather info for themselves '''
+            parser.add_argument('latlong', required=True)
+            args = parser.parse_args()
+            lat, long = args['latlong'].split(',')
+            return {}
+
+
     return api_bp
