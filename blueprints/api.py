@@ -4,6 +4,8 @@ from time import time
 from flask_cors import cross_origin
 from backend.userddbconn import userddbconn
 from backend import backend
+
+
 # create and return out API to tie to our app in hackuiowa/app.py
 def getapibp():
 
@@ -48,8 +50,9 @@ def getapibp():
                 val = udb.logInUser(**args)
             return val
 
-    @api.route('/weather')
-    class weather(Resource):
+    # how user requests rainfall info
+    @api.route('/rainfall')
+    class rainfall(Resource):
 
         def get(self):
             ''' user GETs weather info for themselves '''
