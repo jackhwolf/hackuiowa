@@ -37,7 +37,7 @@ def getapibp():
             parser.add_argument('email')
             parser.add_argument('delete', type=int, default='0')
             args = parser.parse_args()
-            if args['delete']:
+            if args['delete'] == 1:
                 val = udb.deleteUser(**args)
             else:
                 if args.get('email') is None:

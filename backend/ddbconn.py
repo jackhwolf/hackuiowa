@@ -1,8 +1,8 @@
 import boto3
 from dotenv import load_dotenv
-load_dotenv('.env')
 import os
 
+load_dotenv()
 
 #################
 # base db class #
@@ -13,12 +13,13 @@ class db:
 
     def __init__(self):
         ''' get a dynamodb resource '''
+        print(os.environ.get('access'))
+        print(os.environ.get('secret'))
+        print()
         self.res = boto3.resource(
                         'dynamodb',
-                        aws_access_key_id=os.environ.get(
-                                            'access'),
-                        aws_secret_access_key=os.environ.get(
-                                            'secret'),
+                        aws_access_key_id=os.environ.get('access'),
+                        aws_secret_access_key=os.environ.get('secret'),
                         region_name='us-west-1'
                     )
 
