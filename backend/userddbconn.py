@@ -62,7 +62,6 @@ class userddbconn(ddbconn):
         args: username, password
         '''
         u = self.getUser(**kw)
-        print(u)
         if u.get('Count', -1) > 0:
             return u.get('Items')[0]
         return 0
