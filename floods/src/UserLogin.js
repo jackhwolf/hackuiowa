@@ -11,9 +11,25 @@ class UserLogin extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-   handleClick(e) {
-  console.log(this.state.userName);
-  console.log(this.state.password);
+   async handleClick(e) {
+   	const url = 'http://52.8.227.164/user'
+   	const data = {username:this.state.userName, password:this.state.password};
+   	try {
+   		const response = await fetch(url, 
+   		{
+   			method: 'POST',
+   			body: JSON.stringify(data),
+   			headers: {
+   				'Content-Type': 'application/json',
+   			}
+   		});
+
+   		const json = await response.json();
+   		console.log('Success', JSON.stringify(json));
+   	} catch (error) {
+   		console.error('Error', error);
+   	}
+  
  }
 
  handleChange1(e) {
@@ -29,6 +45,9 @@ render() {
 		<div className = 'outer-container' ref={this.props.containerRef}> 
 			<div className = 'header'> Login </div>
 			<div className="content">
+			<div className="image">
+            	<img src={LoginImage} />
+          	</div>
 			<div className = 'form'>
 				<div className = 'form-group'>
 					<label htmlFor="username">Username</label>
