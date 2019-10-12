@@ -1,5 +1,6 @@
-from backend.ddbconn import ddbconn
 from time import time
+from boto3.dynamodb.conditions import Key, Attr, Not
+from backend.ddbconn import ddbconn
 
 
 ######################
@@ -32,46 +33,56 @@ class userddbconn(ddbconn):
                         'AttributeType': 'S'
                     }
                 ]
-        conn.__init__(self, self.tid, self.key_schema, self.attr_defn)
+        ddbconn.__init__(self, self.tid, self.key_schema, self.attr_defn)
 
     def hash__(self, x):
         return x
 
-    def fmtentry__(self, *args):
+    def fmtentry__(self, **kw):
         '''
         clean up our input into a standard format
         args: username, password, email
         '''
         return {
-            'username':    self.hash__(args[0]),
-            'password':    self.hash__(args[1]),
-            'email':       self.hash__(args[2]),
-            'signup-date': int(time())
+            'username':    self.hash__(kw.get('username')),
+            'password':    self.hash__(kw.get('password')),
+            'email':       self.hash__(kw.get('email')),
+            'signup-date': str(int(time()))
         }
 
     def createTable(self, **kw):
-        try:
-            self.create_(
-                self.tid,
-                self.key_schema,
-                self.attr_defn, **kw
-            )
-            return True
-        except Exception as e:
-            print(e)
-            return False
+        return self.create()
 
-    def doesUserExist(self, *args, **kw):
+    def getUser(self, **kw):
+        return self.query(Key('username').eq(kw.get('username')))
+
+    def doesUserExist(self, **kw):
         '''
         is user in ddb?
         args: username, password
         '''
-        return True
+        u = self.getUser(**kw)
+        print(u)
+        if u.get('Count', -1) > 0:
+            return u.get('Items')[0]
+        return 0
 
-    def signUpUser(self, *args, **kw):
+    def signUpUser(self, **kw):
         '''
         add user to ddb
         args: username, password, email
         '''
-        entry = self.fmtentry__(*args)
-        return False
+        self.put(self.fmtentry__(**kw))
+        return {'message': 'user signed up.',
+                'meta': {'newuname': kw.get('username')}}
+
+    def deleteUser(self, **kw):
+        '''
+        delete user from ddb
+        args: username, password
+        '''
+        self.delete({
+                    'username': kw.get('username'),
+                    'password': kw.get('password')
+                })
+        return {'message': 'user deleted.'}

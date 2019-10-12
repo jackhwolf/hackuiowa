@@ -21,23 +21,28 @@ def getapibp():
 
         def get(self):
             ''' see if a user exists '''
+            udb = userddbconn()
             parser = reqparse.RequestParser()
             parser.add_argument('username', required=True)
             parser.add_argument('password', required=True)
             args = parser.parse_args()
-            if args['username'] and args['password']:
-                print(f"\n{int(time())}: User.get({args['username']}, {args['password']}) -- > 1\n")
-                return {'Response': 1}
-            print(f"\n{int(time())}: User.get({args['username']}, {args['password']}) -- > 0\n")
-            return {'Response': 0}
+            return {'Response': udb.doesUserExist(**args)}
 
         def post(self):
-            ''' add new user '''
+            ''' add/delete new user '''
+            udb = userddbconn()
             parser = reqparse.RequestParser()
             parser.add_argument('username', required=True)
             parser.add_argument('password', required=True)
+            parser.add_argument('email')
+            parser.add_argument('delete', type=int, default='0')
             args = parser.parse_args()
-            print(f"{int(time())}: User.get({args['username']}, {args['password']}) -- > 1")
-            return {'Response': 1}
+            if args['delete']:
+                val = udb.deleteUser(**args)
+            else:
+                if args.get('email') is None:
+                    return {'error': 'EMAIL field missing. required for signup'}
+                val = udb.signUpUser(**args)
+            return val
 
     return api_bp

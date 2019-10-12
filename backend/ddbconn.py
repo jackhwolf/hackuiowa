@@ -47,6 +47,11 @@ class db:
         resp = table.query(KeyConditionExpression=keycondexpr)
         return resp
 
+    def delete_(self, tid, keytodelete):
+        table = self.res.Table(tid)
+        resp = table.delete_item(Key=keytodelete)
+        return resp
+
 
 ######################
 # class for ddb conn #
@@ -70,8 +75,7 @@ class ddbconn(db):
             )
             return True
         except Exception as e:
-            print(e)
-            return False
+            return {'error': str(e)}
 
     def put(self, item, **kw):
         try:
@@ -82,11 +86,19 @@ class ddbconn(db):
             return True
         except Exception as e:
             print(e)
-            return False
+            return {'error': str(e)}
 
-    def query(self, keycondexpr):
+    def query(self, keycondexpr, **kw):
         try:
             resp = self.query_(self.tid, keycondexpr)
+            return resp
+        except Exception as e:
+            print(e)
+            return {'error': str(e)}
+
+    def delete(self, keytodelete, **kw):
+        try:
+            resp = self.delete_(self.tid, keytodelete)
             return resp
         except Exception as e:
             print(e)
