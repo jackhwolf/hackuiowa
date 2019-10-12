@@ -17,7 +17,6 @@ def getapibp():
 
     # define stuff for users
     @api.route('/user')
-    @cross_origin(origin='localhost',headers=['Content-Type','Authorization'])
     class user(Resource):
         ''' all things user -- login, signup, logout(?) '''
 
