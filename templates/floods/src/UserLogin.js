@@ -20,10 +20,9 @@ class UserLogin extends React.Component {
    			method: 'POST',
    			body: JSON.stringify(data),
    			headers: {
-   				'Content-Type': 'application/json',
-   			}
+   				'Content-Type': 'application/json'
+   			},
    		});
-
    		const json = await response.json();
    		console.log('Success', JSON.stringify(json));
    	} catch (error) {
