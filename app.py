@@ -4,7 +4,7 @@ from flask_cors import CORS
 from backend.userddbconn import userddbconn
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, automatic_options=True)
 
 app.config['SECRET_KEY'] = 'liuytvryuybindsty5ur6t7yu'
 
