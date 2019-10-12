@@ -1,11 +1,15 @@
-from flask import Flask
+from flask import Flask, render_template
 from blueprints import api
 from flask_cors import CORS
 from backend.userddbconn import userddbconn
 
 app = Flask(__name__)
-CORS(app, automatic_options=True)
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 app.config['SECRET_KEY'] = 'liuytvryuybindsty5ur6t7yu'
 
 app.register_blueprint(api.getapibp())
+
+@app.route('/landing')
+def landing():
+    return render_template('floods/public/index.html')
