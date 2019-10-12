@@ -77,7 +77,7 @@ class userddbconn(ddbconn):
 
     def signInUser(self, **kw):
         if self.doesUserExist(**kw)['Response'] == 1:
-            return {'Result': 1, 'Cookie', 'COOKIE!!!'}
+            return {'Result': 1, 'Cookie': 'COOKIE!!!'}
         else:
             return {'Result': 0, 'meta': {'message': 'User does not exist'}}
 
