@@ -1,6 +1,7 @@
 from flask_restplus import Resource, Api, reqparse
 from flask import Blueprint
 from time import time
+from flask_cors import cross_origin
 from backend.userddbconn import userddbconn
 
 # create and return out API to tie to our app in hackuiowa/app.py
@@ -16,6 +17,7 @@ def getapibp():
 
     # define stuff for users
     @api.route('/user')
+    @cross_origin(origin='localhost',headers=['Content-Type','Authorization'])
     class user(Resource):
         ''' all things user -- login, signup, logout(?) '''
 
@@ -26,7 +28,7 @@ def getapibp():
             parser.add_argument('username', required=True)
             parser.add_argument('password', required=True)
             args = parser.parse_args()
-            return udb.doesUserExist(**args)
+                return udb.doesUserExist(**args)
 
         def post(self):
             ''' add/delete new user '''
