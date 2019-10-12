@@ -26,8 +26,7 @@ def getapibp():
             parser.add_argument('username', required=True)
             parser.add_argument('password', required=True)
             args = parser.parse_args()
-            resp = udb.doesUserExist(**args)
-            return {'Response': udb.doesUserExist(**args)}
+            return udb.doesUserExist(**args)
 
         def post(self):
             ''' add/delete new user '''
