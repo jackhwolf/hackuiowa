@@ -2,6 +2,7 @@ import requests
 from dotenv import load_dotenv
 import os
 
+load_dotenv()
 darksky = os.getenv('darksky')
 
 def rainfall(lat=42.3601, long=-71.0589):
