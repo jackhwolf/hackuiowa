@@ -13,9 +13,6 @@ class db:
 
     def __init__(self):
         ''' get a dynamodb resource '''
-        print(os.environ.get('access'))
-        print(os.environ.get('secret'))
-        print()
         self.res = boto3.resource(
                         'dynamodb',
                         aws_access_key_id=os.environ.get('access'),
