@@ -60,9 +60,9 @@ class logic:
 
     # provide human readable summary of results
     def summarize(self, rainfall, danger):
-        m = rainfall[-1]['y']
+        m = round(rainfall[-1]['y'], 2)
         s = f"You live in a lower elevation than {danger*100}% of people in the area, "
-        _ = "which puts you at a comparatively {} risk of flooding."
+        _ = "which puts you at a comparatively {} risk of flooding. "
         if danger > 0.5:
             s += _.format("higher")
         else:
@@ -73,4 +73,4 @@ class logic:
         else:
             s += f"This week there will be a total of {m} inches "
             s += "of rain, so watch out"
-        return s
+        return f"{s}."
