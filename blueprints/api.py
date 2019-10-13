@@ -3,16 +3,14 @@ from flask import Blueprint
 from time import time
 from flask_cors import cross_origin
 import requests
-import os
 import json
-from dotenv import load_dotenv
 from backend.userddbconn import userddbconn
 from backend import logic
 
-load_dotenv()
 
 # create and return out API to tie to our app in hackuiowa/app.py
 def getapibp():
+
 
     # setup Flask objects
     api_bp = Blueprint('api', __name__)
@@ -21,6 +19,7 @@ def getapibp():
               default_label="hackuiowa-project-api docs")
 
     log = logic.logic()
+
 
     # define stuff for users
     @api.route('/user')
@@ -55,24 +54,20 @@ def getapibp():
                 val = udb.logInUser(**args)
             return val
 
-    # how we check rainfall info
-    @api.route('/checkrainfall')
-    class checkrainfall(Resource):
+    # for the user to get rain/flood info
+    @api.route('/floodwatch')
+    class floodwatch(Resource):
 
         def get(self):
             ''' user GETs weather info for themselves '''
-            lat = 41.6611
-            lng = 91.5302
-            return log.checkrainfall(os.environ.get('weatherKey'), lat, lng)
+            parser = reqparse.RequestParser()
+            parser.add_argument('address')  # , required=True)
+            args = parser.parse_args()
+            addr = '319 trenton way menlo park ca 94025'
+            rainfall = log.checkrainfall(addr)
+            danger   = log.relativedanger(addr)
+            return {'rainfall': rainfall,
+                    'danger': danger}
 
-    # how we determine flooding chance
-    @api.route('/determinefloodchance')
-    class determinefloodchance(Resource):
-
-        def get(self):
-            ''' user GETs relative chances of flooding '''
-            lat = 41.6611
-            lng = 91.5302
-            return log.relativeheight((lat, lng))
 
     return api_bp
