@@ -19,15 +19,10 @@ class logic:
         if '*' in addr:
             addr = addr.replace('*', '%20')
         addr = addr.replace(' ', '%20')  # delim --> `space`
-        print(os.environ.get('mapboxKey'))
         url = f"https://api.mapbox.com/geocoding/v5/mapbox.places/{addr}.json?access_token={os.environ.get('mapboxKey')}"
         r = requests.get(url).json()
-        print()
-        print(r)
-        print()
         r = r['features'][0]['center']
         return r[::-1]
-
 
     # to get rainfall over days for lat,lng
     def checkrainfall(self, addr):
@@ -63,6 +58,18 @@ class logic:
                 hits += 1
         return hits/n
 
-if __name__ == '__main__':
-    l = logic()
-    l.addrlatlng('319 trenton way menlo park ca 94025')
+    # provide human readable summary of results
+    def summarize(rainfall, danger):
+        m = max(list(rainfall), key=lambda x: rainfall[x])
+        s = f"You live in a lower elevation than {danger*100}% of people in the area, "
+        _ += "which puts you at a comparatively {} risk of flooding."
+        if s > 0.5:
+            s += _.format("higher")
+        else:
+            s += _.format("lower")
+        if m < 24:
+            s += "However, there will only be a total of {m} inches "
+            s += "of rain this week, so there is no flood risk"
+        else:
+            s += "This week there will be a total of {m} inches "
+            s+= "of rain, so watch out"

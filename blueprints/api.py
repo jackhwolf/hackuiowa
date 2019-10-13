@@ -50,6 +50,7 @@ def getapibp():
                 if args.get('email') is None:
                     return {'error': 'email field missing. required for signup'}
                 val = udb.signUpUser(**args)
+
             elif args['action'].upper() == 'L':  # login user
                 val = udb.logInUser(**args)
             return val
@@ -65,8 +66,10 @@ def getapibp():
             args = parser.parse_args()
             rainfall = log.checkrainfall(args['address'])
             danger   = log.relativedanger(args['address'])
+            summary = log.summarize(rainfall, danger)
             return {'rainfall': rainfall,
-                    'danger': danger}
+                    'danger': danger
+                    'summary': summary}
 
 
     return api_bp
