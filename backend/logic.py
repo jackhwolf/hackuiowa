@@ -41,6 +41,7 @@ class logic:
     # get elevation of given lat/lng
     def getelev(self, lat, lng):
         url = f"https://api.jawg.io/elevations?locations={lat},{lng}&access-token={os.environ.get('jawgKey')}"
+        time.sleep(1)
         r = requests.get(url).json()
         return r[0]['elevation']
 
@@ -57,7 +58,6 @@ class logic:
             elev = self.getelev(lat, lng)
             if master < elev:
                 hits += 1
-            time.sleep(1)
         return hits/n
 
 if __name__ == '__main__':
