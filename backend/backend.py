@@ -6,10 +6,11 @@ load_dotenv()
 
 def getrainfall(lat=37.8267, long=-122.4233):
     url = f"https://api.darksky.net/forecast/{os.environ.get('weatherKey')}/{str(lat)},{str(long)}"
-    r = requests.get(url).json()['minutely']
+    r = requests.get(url).json()
+    print(r['minutely'])
     print()
-    r = requests.get(url).json()['hourly']
+    print(r['hourly'])
     print()
-    r = requests.get(url).json()['daily']
+    print(r['daily'])
     print()
     return r
