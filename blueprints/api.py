@@ -50,7 +50,7 @@ def getapibp():
 
     # how user requests rainfall info
     @api.route('/getrainfall')
-    class rainfall(Resource):
+    class getrainfall(Resource):
 
         def get(self):
             ''' user GETs weather info for themselves '''
