@@ -14,14 +14,14 @@ class UserLogin extends React.Component {
     this.handleChange1 = this.handleChange1.bind(this);
     this.handleChange2 = this.handleChange2.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.hasPinged = -1;
   }
 
-
-   async handleClick(e) {
-   	const url = 'http://52.8.227.164/user'
+  async handleClick(e) {
+    const url = 'http://52.8.227.164/user'
    	const data = {username:this.state.userName, password:this.state.password, action:this.state.act};
-   	try {
-   		const response = await fetch(url, 
+    try {
+   		const response = await fetch(url,
    		{
    			method: 'POST',
    			body: JSON.stringify(data),
@@ -34,15 +34,15 @@ class UserLogin extends React.Component {
         this.setState({flag: 1, txt:''});
       }
       else {
-         this.setState({flag:2, txt:'Wrong username and Password'}); 
+         this.setState({flag:2, txt:'Wrong username and Password'});
       }
    		console.log('Success', JSON.stringify(json));
       console.log(json['Cookie']);
    	} catch (error) {
    		console.error('Error', error);
    	}
-  
- }
+    this.hadPinged = 1;
+  }
 
  handleChange1(e) {
   this.setState({userName: e.target.value})
@@ -50,15 +50,16 @@ class UserLogin extends React.Component {
  handleChange2(e) {
   this.setState({password: e.target.value})
  }
- 
+
 
 render() {
   if (this.state.flag === 1) {
-    console.log("KKKK")
-        return <Redirect to='/Flood' />
+    console.log("redirecting to flood...")
+        return ( <Redirect to='/Flood' /> )
     }
 	return (
-		<div className = 'outer-container' ref={this.props.containerRef}> 
+		<div className = 'outer-container' ref={this.props.containerRef}>
+      <div><h3>{this.state.flag}</h3></div>
 			<div className = 'header'> Login </div>
 			<div className="content">
       <div className="image">
@@ -87,7 +88,7 @@ render() {
           </div>
       </div>
 	);
-}	
+}
 }
 
 export default UserLogin;
