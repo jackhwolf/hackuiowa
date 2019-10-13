@@ -36,7 +36,10 @@ class logic:
         r = requests.get(url)
         daily = r.json()['daily']['data']
         vals = list(map(lambda x: x['precipIntensityMax']*24, daily))
-        return list(map(lambda x: round(x, 3), np.cumsum(vals)))
+        vals = list(np.cumsum(vals))
+        for i, v in enumerate(vals):
+            vals[i] = {'x': i+1, 'y': v}
+        return vals
 
     # get elevation of given lat/lng
     def getelev(self, lat, lng):
@@ -46,7 +49,7 @@ class logic:
         return r[0]['elevation']
 
     # compare your elev to elev of surrounding areas
-    def relativedanger(self, addr, r=0.03, n=10):
+    def relativedanger(self, addr, r=0.03, n=1):
         center = self.addrlatlng(addr)
         master = self.getelev(center[0], center[1])
         hits = 0
