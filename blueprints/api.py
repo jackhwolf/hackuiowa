@@ -63,7 +63,7 @@ def getapibp():
             r = requests.get(url)
             r = r.json()
             daily = r['daily']['data']
-            daily = list(map(lambda x: [x['time'], x['precipIntensityMax']*24], daily))
+            daily = list(map(lambda x: [x['time'], round(x['precipIntensityMax']*24], 3), daily))
             return daily
 
     return api_bp
