@@ -66,6 +66,7 @@ def getapibp():
             rainfall = log.checkrainfall(args['address'])
             danger   = log.relativedanger(args['address'])
             summary = log.summarize(rainfall, danger)
+            danger = log.scaled_danger(rainfall[-1]['y'], danger)
             return {'rainfall': rainfall,
                     'danger': danger,
                     'summary': summary}

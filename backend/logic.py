@@ -44,7 +44,7 @@ class logic:
         return r[0]['elevation']
 
     # compare your elev to elev of surrounding areas
-    def relativedanger(self, addr, r=0.03, n=2):
+    def relativedanger(self, addr, r=0.03, n=5):
         center = self.addrlatlng(addr)
         master = self.getelev(center[0], center[1])
         hits = 0
@@ -57,6 +57,10 @@ class logic:
             if master < elev:
                 hits += 1
         return hits/n
+
+    # adjust danger to reflect amount of rainfall
+    def scale_danger(self, rainfall, unscaled_danger):
+        return min(rainfall/24, 1) * (unscaled_danger*100)
 
     # provide human readable summary of results
     def summarize(self, rainfall, danger):
