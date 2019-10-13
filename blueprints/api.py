@@ -63,8 +63,8 @@ def getapibp():
             parser = reqparse.RequestParser()
             parser.add_argument('address', required=True)  # , required=True)
             args = parser.parse_args()
-            rainfall = log.checkrainfall(addr)
-            danger   = log.relativedanger(addr)
+            rainfall = log.checkrainfall(args['address'])
+            danger   = log.relativedanger(args['address'])
             return {'rainfall': rainfall,
                     'danger': danger}
 
