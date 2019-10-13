@@ -61,16 +61,16 @@ render() {
           <Form.Control type="email" value = {this.state.userName} placeholder="Username" onChange={this.handleChange1}/>
         </Form.Group>
         <Form.Group controlId="formBasicEmail" className = 'form-group'>
-        <Form.Label style={{fontWeight:'bold'}}>Email Address</Form.Label>
-        <Form.Text className="text-muted" htmlFor="email">We'll never share your email with anyone else.</Form.Text>
-        <Form.Control type="email" value = {this.state.email} placeholder="Email Address" onChange={this.handleChange2}/>
+          <Form.Label style={{fontWeight:'bold'}}>Email Address</Form.Label>
+          <Form.Text className="text-muted" htmlFor="email">We'll never share your email with anyone else.</Form.Text>
+          <Form.Control type="email" value = {this.state.email} placeholder="Email Address" onChange={this.handleChange2}/>
         </Form.Group>
         <Form.Group controlId="formBasicPassword" className = 'form-group'>
-        <Form.Label style={{fontWeight:'bold'}}>Password</Form.Label>
-        <Form.Text className="text-muted" htmlFor="password"></Form.Text>
-        <Form.Control type="password" value = {this.state.password} placeholder="Password" onChange={this.handleChange3}/>
+          <Form.Label style={{fontWeight:'bold'}}>Password</Form.Label>
+          <Form.Text className="text-muted" htmlFor="password"></Form.Text>
+          <Form.Control type="password" value = {this.state.password} placeholder="Password" onChange={this.handleChange3}/>
         </Form.Group>
-				</Form>
+			</Form>
 			</div>
       <div className="footer">
         <Button variant="outline-primary" size="lg" onClick={this.handleClick} type="button" className="btn" block>
