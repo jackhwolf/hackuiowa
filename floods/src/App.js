@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import UserLogin from './UserLogin';
 import Register from './Register'
+import { BrowserRouter as Router} from 'react-router-dom'
 
 
 class App extends React.Component {
@@ -35,6 +36,7 @@ render() {
     const curr = login ? "Register" : "Login";
     const currentActive = login ? "login" : "register";
   return (
+    <Router>
         <div className="App">
           <div className="login">
             <div className="container" ref={ref => (this.container = ref)}>
@@ -53,6 +55,7 @@ render() {
           />
           </div>
         </div>
+        </Router>
 
   );
 }
