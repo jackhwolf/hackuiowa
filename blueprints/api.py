@@ -59,20 +59,11 @@ def getapibp():
 
         def get(self):
             ''' user GETs weather info for themselves '''
-            print(1)
             url = f"https://api.darksky.net/forecast/{os.environ.get('weatherKey')}/43.0731,89.4012"
-            print(2)
             r = requests.get(url)
             r = r.json()
             daily = r['daily']['data']
-            print(json.dumps(daily, indent=4))
             daily = list(map(lambda x: [x['time'], x['precipIntensityMax']*24], daily))
             return daily
-
-    @api.route('/test')
-    class test(Resource):
-
-        def get(self):
-            return "test.."
 
     return api_bp
