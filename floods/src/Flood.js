@@ -1,16 +1,40 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Graph from './Graph'
+// import Graph from './Graph'
 import './floodstyle.scss';
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Card from 'react-bootstrap/Card'
+
+import './graphstyle.scss';
+import {
+  XYPlot,
+  XAxis,
+  YAxis,
+  VerticalGridLines,
+  HorizontalGridLines,
+  VerticalBarSeries,
+  VerticalBarSeriesCanvas,
+  LabelSeries
+} from 'react-vis';
+
 
 class Flood extends React.Component {
   constructor(props) {
   	super(props)
-  	this.state = {address:'', floodwatchResults: {}};
+  	this.state = {address:'', floodwatchResults: {}, showInfo: 'None'};
     this.handleChange10 = this.handleChange10.bind(this);
     this.handleClick1 = this.handleClick1.bind(this);
+    this.changeShowInfo = this.changeShowInfo.bind(this);
+  }
 
+  changeShowInfo() {
+  	console.log("showing info")
+  	this.setState({
+  		showInfo: ''
+  	})
   }
 
   handleChange10(e) {
@@ -36,26 +60,53 @@ class Flood extends React.Component {
    	} catch (error) {
    		console.error('Error', error);
    	}
+   	this.setState({
+   		showInfo: ''
+   	})
    }
+
   	render() {
   		return (
-  			<>
-  		<div className = "style1">
-  		<Form className = 'form2'>
-        <Form.Group controlId="formBasicEmail" className = 'form-group'>
-          <Form.Label style={{marginTop: '90px', fontWeight:'bold'}}>Enter Address</Form.Label>
-          <Form.Control type="email" placeholder="Address" onChange={this.handleChange10}/>
-          <Form.Text className="text-muted" htmlFor="username"></Form.Text>
-          <Button variant="outline-primary" size="lg" onClick={this.handleClick1} className="btn" block>
-            		Submit
-          	</Button>
-        </Form.Group>
-        </Form>
-        </div>
-        <div styleName={{marginVertical: '0'}} className="Graphstyle">
-          	<Graph styleName={{marginVertical: '0'}} data={this.state.floodwatchResults['rainfall']}/>
-          </div>
-          </>
+  		<div className="style1">
+  		<Container>
+  		<Row>
+  		<Col>
+  				<Form className = 'form2'>
+        		<Form.Group controlId="formBasicEmail" className = 'form-group'>
+          		<Form.Label style={{marginTop: '90px', fontWeight:'bold', fontSize:'30px', color:'white'}}>ENTER ADDRESS</Form.Label>
+          		<Form.Control type="email" placeholder="Address" onChange={this.handleChange10}/>
+          		<Form.Text className="text-muted" htmlFor="username"></Form.Text>
+          			<Button variant="outline-light" size="lg" onClick={this.handleClick1} className="btn" block>
+            			Submit
+          			</Button>
+        		</Form.Group>
+        		</Form>
+        </Col>
+        <Col styleName={{paddingTop:'10px'}}>
+        		<div className="Graphstyle">
+	          		<div>
+				        <XYPlot xType="ordinal" width={500} height={500} xDistance={100}>
+				          <VerticalGridLines />
+				          <HorizontalGridLines />
+				          <XAxis />
+				          <YAxis />
+				          <VerticalBarSeries className="vertical-bar-series-example" data={this.state.floodwatchResults['rainfall']} />
+				        </XYPlot>
+				     </div>
+         		</div>
+         </Col>
+         <Col>
+         	<Card style={{ width: '18rem', display: this.state.showInfo}}>
+  				<Card.Body style={{paddingTop: '10px'}}>
+    				<Card.Text>
+      					{this.state.floodwatchResults['summary']}
+    				</Card.Text>
+  				</Card.Body>
+			</Card>
+         </Col>
+         </Row>
+         </Container>
+         </div>
   			)}
 }
 
