@@ -61,9 +61,8 @@ def getapibp():
         def post(self):
             ''' user GETs weather info for themselves '''
             parser = reqparse.RequestParser()
-            parser.add_argument('address')  # , required=True)
+            parser.add_argument('address', required=True)  # , required=True)
             args = parser.parse_args()
-            addr = '319 trenton way menlo park ca 94025'
             rainfall = log.checkrainfall(addr)
             danger   = log.relativedanger(addr)
             return {'rainfall': rainfall,
