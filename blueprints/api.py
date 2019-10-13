@@ -67,5 +67,4 @@ def getapibp():
             daily = list(map(lambda x: [x['time'], x['precipIntensityMax']], daily))
             return daily
 
-
     return api_bp
