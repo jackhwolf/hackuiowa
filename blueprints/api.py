@@ -2,9 +2,14 @@ from flask_restplus import Resource, Api, reqparse
 from flask import Blueprint
 from time import time
 from flask_cors import cross_origin
+import requests
+import os
+import json
+from dotenv import load_dotenv
 from backend.userddbconn import userddbconn
-from backend import backend
 
+
+load_dotenv()
 
 # create and return out API to tie to our app in hackuiowa/app.py
 def getapibp():
@@ -49,12 +54,18 @@ def getapibp():
             return val
 
     # how user requests rainfall info
-    @api.route('/getrainfall')
-    class getrainfall(Resource):
+    @api.route('/checkrainfall')
+    class checkrainfall(Resource):
 
         def get(self):
             ''' user GETs weather info for themselves '''
-            return backend.getrainfall()
+            url = f"https://api.darksky.net/forecast/{os.environ.get('weatherKey')}/{str(lat)},{str(long)}"
+            r = requests.get(url)
+            r = r.json()
+            daily = r['daily']['data']
+            print(json.dumps(daily, indent=4))
+            daily = list(map(lambda x: [x['time'], x['precipIntensityMax']], daily))
+            return daily
 
 
     return api_bp
