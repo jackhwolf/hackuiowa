@@ -60,7 +60,7 @@ class logic:
 
     # adjust danger to reflect amount of rainfall
     def scale_danger(self, rainfall, unscaled_danger):
-        return min(rainfall/24, 1) * (unscaled_danger*100)
+        return round(min(rainfall/24, 1) * (unscaled_danger*100), 2)
 
     # provide human readable summary of results
     def summarize(self, rainfall, danger):
