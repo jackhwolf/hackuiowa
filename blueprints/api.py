@@ -49,7 +49,7 @@ def getapibp():
             return val
 
     # how user requests rainfall info
-    @api.route('/rainfall')
+    @api.route('/getrainfall')
     class rainfall(Resource):
 
         def get(self):
@@ -57,8 +57,7 @@ def getapibp():
             # parser = reqparse.RequestParser()
             # parser.add_argument('latlong', required=False)
             # args = parser.parse_args()
-            print("getting rainfall\n")
-            return backend.rainfall()
+            return backend.getrainfall()
 
 
     return api_bp
