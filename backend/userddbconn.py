@@ -170,9 +170,9 @@ class userddbconn(ddbconn):
         args: username, password
         '''
         u = self.getUser(**kw)
-        print(u)
         if u.get('Count', -1) > 0:
-            return {'Response': 1, 'meta': u.get('Items')[0]}
+            if u.get('Items')[0]['password'] == kw['password']:
+                return {'Response': 1, 'meta': u.get('Items')[0]}
         return {'Response': 0}
 
     def signUpUser(self, **kw):

@@ -7,7 +7,7 @@ import os
 import json
 from dotenv import load_dotenv
 from backend.userddbconn import userddbconn
-
+from backend import logic
 
 load_dotenv()
 
@@ -19,6 +19,8 @@ def getapibp():
     api = Api(api_bp,
               default="hackuiowa-project-api",
               default_label="hackuiowa-project-api docs")
+
+    log = logic.logic()
 
     # define stuff for users
     @api.route('/user')
@@ -53,17 +55,24 @@ def getapibp():
                 val = udb.logInUser(**args)
             return val
 
-    # how user requests rainfall info
+    # how we check rainfall info
     @api.route('/checkrainfall')
     class checkrainfall(Resource):
 
         def get(self):
             ''' user GETs weather info for themselves '''
-            url = f"https://api.darksky.net/forecast/{os.environ.get('weatherKey')}/43.0731,89.4012"
-            r = requests.get(url)
-            r = r.json()
-            daily = r['daily']['data']
-            daily = list(map(lambda x: [x['time'], round(x['precipIntensityMax']*24, 3)], daily))
-            return daily
+            lat = 41.6611
+            lng = 91.5302
+            return log.checkrainfall(os.environ.get('weatherKey'), lat, lng)
+
+    # how we determine flooding chance
+    @api.route('/determinefloodchance')
+    class determinefloodchance(Resource):
+
+        def get(self):
+            ''' user GETs relative chances of flooding '''
+            lat = 41.6611
+            lng = 91.5302
+            return log.relativeheight((lat, lng))
 
     return api_bp
