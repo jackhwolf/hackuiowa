@@ -75,6 +75,12 @@ class userddbconn(ddbconn):
         return {'message': 'user signed up.',
                 'meta': {'newuname': kw.get('username')}}
 
+    def signInUser(self, **kw):
+        if self.doesUserExist(**kw)['Response'] == 1:
+            return {'Result': 1, 'Cookie', 'COOKIE!!!'}
+        else:
+            return {'Result': 0, 'meta': {'message': 'User does not exist'}}
+
     def deleteUser(self, **kw):
         '''
         delete user from ddb

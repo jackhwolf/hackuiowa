@@ -33,6 +33,7 @@ def getapibp():
             ''' add/delete new user '''
             udb = userddbconn()
             parser = reqparse.RequestParser()
+            parser.add_argument('action')
             parser.add_argument('username', required=True)
             parser.add_argument('password', required=True)
             parser.add_argument('email')
@@ -41,9 +42,12 @@ def getapibp():
             if args['delete'] == 1:
                 val = udb.deleteUser(**args)
             else:
-                if args.get('email') is None:
-                    return {'error': 'EMAIL field missing. required for signup'}
-                val = udb.signUpUser(**args)
+                if arg['action'].upper() == 'S':
+                    if args.get('email') is None:
+                        return {'error': 'EMAIL field missing. required for signup'}
+                    val = udb.signUpUser(**args)
+                if args['action'].upper() == 'L':
+                    val = udb.signInUser(**args)
             return val
 
     return api_bp
