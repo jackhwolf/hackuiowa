@@ -90,9 +90,9 @@ class Flood extends React.Component {
 							<XYPlot title="Cumulative sum of rainfall" xType="ordinal" width={500} height={500} xDistance={100}>
 							<VerticalGridLines />
 							<HorizontalGridLines />
-							<XAxis title="Days" style={{line:{stroke: '#FFFF33'}, ticks: {stroke: '#FFFF33'}}}/>
+							<XAxis title="Days" style={{line:{stroke: '#FFFF33'}, ticks: {stroke: '#FFFF33'}, text: {stroke: '#FFFF33', fill: '#FFFF33'}}}/>
 							<YAxis title="Cumulative sum of rainfall"
-							style={{line:{stroke: '#FFFF33'}, ticks: {stroke: '#FFFF33'}, text: {align: {vertical: 'top', horizontal: 'lefts'}}}}/>
+							style={{line:{stroke: '#FFFF33'}, ticks: {stroke: '#FFFF33'}, text: {stroke: '#FFFF33', fill: '#FFFF33', align: {vertical: 'top', horizontal: 'lefts'}}}}/>
 							<VerticalBarSeries title="Cumulative sum of rainfall" className="vertical-bar-series-example" data={this.state.floodwatchResults['rainfall']} />
 							</XYPlot>
 						</div>
@@ -103,12 +103,12 @@ class Flood extends React.Component {
 						<Card.Body style={{paddingTop: '10px'}}>
 							<Card.Text>
 								{this.state.floodwatchResults['summary']}
-							</Card.Text>
-							Danger: {this.state.floodwatchResults['danger']}%
-							<Card.Text>
 						   </Card.Text>
 						</Card.Body>
 					</Card>
+					<Button variant="primary" size="lg" block style={{ width: '18rem', display: this.state.showInfo}}>
+					    Danger: {this.state.floodwatchResults['danger']}%
+					</Button>
 				</Col>
 			</Row>
 		</Container>
