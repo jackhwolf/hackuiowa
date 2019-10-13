@@ -13,8 +13,7 @@ def getapibp():
     api_bp = Blueprint('api', __name__)
     api = Api(api_bp,
               default="hackuiowa-project-api",
-              default_label="hackuiowa-project-api docs",
-              doc='/apidoc')
+              default_label="hackuiowa-project-api docs")
 
     # define stuff for users
     @api.route('/user')
