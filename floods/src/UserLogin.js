@@ -38,7 +38,7 @@ class UserLogin extends React.Component {
         this.props.loginSuccessHandler()
       }
       else {
-         this.setState({flag:2, txt:'Wrong username and Password'}); 
+         this.setState({flag:2, txt:'Wrong Username or Password'}); 
       }
    		console.log('Success', JSON.stringify(json));
       //console.log(json['Cookie']);
@@ -78,7 +78,7 @@ render() {
         <Form.Text className="text-muted" htmlFor="password"></Form.Text>
         <Form.Control type="password" value = {this.state.password} placeholder="Password" onChange={this.handleChange2}/>
           <br></br>
-          <span>{this.state.txt}</span>
+          <span style={{color:'red'}}>{this.state.txt}</span>
         </Form.Group>
         </Form>
 			</div>

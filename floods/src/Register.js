@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form'
 class Register extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {userName:'', email:'', password:'', act:'s'};
+    this.state = {userName:'', email:'', password:'', act:'s', reg:''};
     this.handleChange1 = this.handleChange1.bind(this);
     this.handleChange2 = this.handleChange2.bind(this);
     this.handleChange3 = this.handleChange3.bind(this);
@@ -17,6 +17,7 @@ class Register extends React.Component {
  
  async handleClick(e) {
     const url = 'http://52.8.227.164/user'
+    this.setState({reg:'Registered Successfully!'});
     const data = {username:this.state.userName, password:this.state.password, email:this.state.email, action: this.state.act};
     try {
       const response = await fetch(url, 
@@ -75,6 +76,7 @@ render() {
         <Button variant="outline-primary" size="lg" onClick={this.handleClick} type="button" className="btn" block>
         	Register
         </Button>
+        <span style={{color:'red'}}>{this.state.reg}</span>
       </div>
     </div>
 	);

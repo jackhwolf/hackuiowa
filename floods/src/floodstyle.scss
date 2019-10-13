@@ -5,8 +5,25 @@
   bottom: 0;
   right: 0;
   overflow: auto;
-
   font-family: "Open Sans", sans-serif;
   background-image: url("contour.jpg");
   background-size: cover;
+}
+
+.contain1 {
+	margin-top: 70px;
+}
+
+.col3 {
+	margin-top:70px;
+}
+
+.image1 {
+  width:350px;	
+  height:100px;
+}
+
+.image1 img {
+  width: 100%;
+  height: auto;
 }

@@ -7,6 +7,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
+import LoginImage from './Sign.png'
 
 import './graphstyle.scss';
 import {
@@ -68,7 +69,10 @@ class Flood extends React.Component {
   	render() {
   		return (
   		<div className="style1">
-  		<Container>
+  		<div className="image1">
+              <img src={LoginImage} />
+      	</div>
+  		<Container className="contain1">
   		<Row>
   		<Col>
   				<Form className = 'form2'>
@@ -82,24 +86,28 @@ class Flood extends React.Component {
         		</Form.Group>
         		</Form>
         </Col>
-        <Col styleName={{paddingTop:'10px'}}>
+        <Col>
         		<div className="Graphstyle">
 	          		<div>
-				        <XYPlot xType="ordinal" width={500} height={500} xDistance={100}>
+				        <XYPlot title="Cumulative sum of rainfall" xType="ordinal" width={500} height={500} xDistance={100}>
 				          <VerticalGridLines />
 				          <HorizontalGridLines />
-				          <XAxis />
-				          <YAxis />
-				          <VerticalBarSeries className="vertical-bar-series-example" data={this.state.floodwatchResults['rainfall']} />
+				          <XAxis title="Days" style={{line:{stroke: '#FFFF33'}, ticks: {stroke: '#FFFF33'}}}/>
+				          <YAxis title="Cumulative sum of rainfall"
+				                 style={{line:{stroke: '#FFFF33'}, ticks: {stroke: '#FFFF33'}, text: {align: {vertical: 'top', horizontal: 'lefts'}}}}/>
+				          <VerticalBarSeries title="Cumulative sum of rainfall" className="vertical-bar-series-example" data={this.state.floodwatchResults['rainfall']} />
 				        </XYPlot>
 				     </div>
          		</div>
          </Col>
-         <Col>
+         <Col className="col3">
          	<Card style={{ width: '18rem', display: this.state.showInfo}}>
   				<Card.Body style={{paddingTop: '10px'}}>
     				<Card.Text>
       					{this.state.floodwatchResults['summary']}
+    				</Card.Text>
+    					Danger: {this.state.floodwatchResults['danger']}%
+    				<Card.Text>
     				</Card.Text>
   				</Card.Body>
 			</Card>
