@@ -16,6 +16,8 @@ class logic:
 
     # translate address to latitude/longitude
     def addrlatlng(self, addr):
+        if '*' in addr:
+            addr = addr.replace('*', '%20')
         addr = addr.replace(' ', '%20')  # delim --> `space`
         maboxKey = os.environ.get('mapboxKey')
         url = f"https://api.mapbox.com/geocoding/v5/mapbox.places/{addr}.json?access_token={os.environ.get('mapboxKey')}"
