@@ -19,7 +19,7 @@ class logic:
         if '*' in addr:
             addr = addr.replace('*', '%20')
         addr = addr.replace(' ', '%20')  # delim --> `space`
-        maboxKey = os.environ.get('mapboxKey')
+        print(os.environ.get('mapboxKey'))
         url = f"https://api.mapbox.com/geocoding/v5/mapbox.places/{addr}.json?access_token={os.environ.get('mapboxKey')}"
         r = requests.get(url).json()
         print()
@@ -40,7 +40,6 @@ class logic:
 
     # get elevation of given lat/lng
     def getelev(self, lat, lng):
-        time.sleep(1)
         url = f"https://api.jawg.io/elevations?locations={lat},{lng}&access-token={os.environ.get('jawgKey')}"
         r = requests.get(url).json()
         return r[0]['elevation']
@@ -58,6 +57,7 @@ class logic:
             elev = self.getelev(lat, lng)
             if master < elev:
                 hits += 1
+            time.sleep(1)
         return hits/n
 
 if __name__ == '__main__':

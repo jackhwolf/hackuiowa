@@ -58,7 +58,7 @@ def getapibp():
     @api.route('/floodwatch')
     class floodwatch(Resource):
 
-        def get(self):
+        def post(self):
             ''' user GETs weather info for themselves '''
             parser = reqparse.RequestParser()
             parser.add_argument('address')  # , required=True)
