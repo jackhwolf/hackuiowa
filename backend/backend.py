@@ -2,11 +2,10 @@ import requests
 from dotenv import load_dotenv
 import os
 
+load_dotenv()
 
-def rainfall(lat=42.3601, long=-71.0589):
-    load_dotenv('backend/.env')
-    wk = os.environ.get('weatherKey')
-    url = 'https://api.darksky.net/forecast/d64c249e442fb61d8a38236627633a13/37.8267,-122.4233'
+def rainfall(lat=37.8267, long=-122.4233):
+    url = f'https://api.darksky.net/forecast/{os.environ.get('weatherKey')}/{str(lat)},{str(long)}'
     r = requests.get(url).json()
     print(wk)
     return r
