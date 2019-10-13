@@ -69,4 +69,10 @@ def getapibp():
             daily = list(map(lambda x: [x['time'], x['precipIntensityMax']*24], daily))
             return daily
 
+    @api.route('/test')
+    class test(Resource):
+
+        def get(self):
+            return "test.."
+
     return api_bp
