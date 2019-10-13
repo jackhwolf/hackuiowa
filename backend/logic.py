@@ -14,7 +14,7 @@ class logic:
     def __init__(self):
         pass
 
-    # translate address to latitude/longitude
+    # translate address to latitude/longitude using mapbox API
     def addrlatlng(self, addr):
         if '*' in addr:
             addr = addr.replace('*', '%20')
@@ -24,7 +24,7 @@ class logic:
         r = r['features'][0]['center']
         return r[::-1]
 
-    # to get rainfall over days for lat,lng
+    # to get rainfall over days for lat,lng using darksky API
     def checkrainfall(self, addr):
         lat, lng = self.addrlatlng(addr)
         url = f"https://api.darksky.net/forecast/{os.environ.get('weatherKey')}/{lat},{lng}"
@@ -36,7 +36,7 @@ class logic:
             vals[i] = {'x': i+1, 'y': v}
         return vals
 
-    # get elevation of given lat/lng
+    # get elevation of given lat/lng using Jawg API
     def getelev(self, lat, lng):
         url = f"https://api.jawg.io/elevations?locations={lat},{lng}&access-token={os.environ.get('jawgKey')}"
         time.sleep(1)
@@ -44,11 +44,11 @@ class logic:
         return r[0]['elevation']
 
     # compare your elev to elev of surrounding areas
-    def relativedanger(self, addr, r=0.03, n=5):
+    def relativedanger(self, addr, r=0.03, n=3):
         center = self.addrlatlng(addr)
         master = self.getelev(center[0], center[1])
         hits = 0
-        for x in range(0, n+1):
+        for x in range(0, n+1):   # describe a circle around points
             lat, lng = (
                 center[0] + (math.cos(2 * math.pi / n * x) * r),  # x
                 center[1] + (math.sin(2 * math.pi / n * x) * r)   # y
