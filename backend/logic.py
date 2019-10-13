@@ -61,6 +61,11 @@ class logic:
     # provide human readable summary of results
     def summarize(self, rainfall, danger):
         m = 3
+        try:
+            print(rainfall)
+            print(rainfall[-1])
+        except:
+            pass
         s = f"You live in a lower elevation than {danger*100}% of people in the area, "
         _ = "which puts you at a comparatively {} risk of flooding."
         if danger > 0.5:
