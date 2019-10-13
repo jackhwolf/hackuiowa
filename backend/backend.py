@@ -11,6 +11,6 @@ def getrainfall(lat=37.8267, long=-122.4233):
     r = requests.get(url)
     r = r.json()
     daily = r['daily']['data']
-    print(json.dumps(data, indent=4))
+    print(json.dumps(daily, indent=4))
     daily = list(map(lambda x: [x['time'], x['precipProbability'], x['precipIntensityMax']], daily))
     return daily
