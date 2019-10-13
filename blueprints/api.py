@@ -56,9 +56,10 @@ def getapibp():
 
         def get(self):
             ''' user GETs weather info for themselves '''
-            parser = reqparse.RequestParser()
-            parser.add_argument('latlong', required=False)
-            args = parser.parse_args()
+            # parser = reqparse.RequestParser()
+            # parser.add_argument('latlong', required=False)
+            # args = parser.parse_args()
+            print("getting rainfall\n")
             return backend.rainfall()
 
 
