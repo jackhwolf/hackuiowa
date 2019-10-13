@@ -14,7 +14,7 @@ def getapibp():
     api = Api(api_bp,
               default="hackuiowa-project-api",
               default_label="hackuiowa-project-api docs",
-              doc='apidoc/')
+              doc='/apidoc')
 
     # define stuff for users
     @api.route('/user')
