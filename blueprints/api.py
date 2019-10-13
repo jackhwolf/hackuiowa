@@ -4,6 +4,7 @@ from time import time
 from flask_cors import cross_origin
 import requests
 import json
+from time import time 
 from backend.userddbconn import userddbconn
 from backend import logic
 
@@ -28,6 +29,7 @@ def getapibp():
 
         def get(self):
             ''' see if a user exists '''
+            print(f'{int(time())}\nGET to user\n')        
             udb = userddbconn()
             parser = reqparse.RequestParser()
             parser.add_argument('username', required=True)
@@ -37,6 +39,7 @@ def getapibp():
 
         def post(self):
             ''' add/delete new user '''
+            print(f'{int(time())}\nPOST to user\n')
             udb = userddbconn()
             parser = reqparse.RequestParser()
             parser.add_argument('action')
@@ -60,6 +63,7 @@ def getapibp():
 
         def post(self):
             ''' user GETs weather info for themselves '''
+            print(f'{int(time())}\nPOST to floodwatch\n')
             parser = reqparse.RequestParser()
             parser.add_argument('address', required=True)  # , required=True)
             args = parser.parse_args()
