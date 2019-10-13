@@ -1,11 +1,19 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
 
 .App {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: auto;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: "Open Sans", sans-serif;
+  background-image: url("Vatican.jpg");
+  background-size: cover;
 }
 
 .App-logo {
@@ -41,6 +49,7 @@
 .image {
   width:350px;
   height:100px;
+  padding-top:55px;
 }
 
 .image img {

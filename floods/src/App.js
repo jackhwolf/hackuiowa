@@ -2,21 +2,34 @@ import React from 'react';
 import './App.css';
 import UserLogin from './UserLogin';
 import Register from './Register'
-import { BrowserRouter as Router} from 'react-router-dom'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
+import Flood from './Flood'
 
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      login: true
+      login: true,
+      divLoginDisplay: '',
+      divLandingDisplay: 'None'
     };
+    this.toggleDivViz = this.toggleDivViz.bind(this);
   }
 
   componentDidMount() {
     this.rightSide.classList.add("right");
   }
 
+toggleDivViz() {
+  var divLogin = this.state.divLoginDisplay
+  var divLanding = this.state.divLandingDisplay
+  this.setState({
+    divLoginDisplay: divLanding,
+    divLandingDisplay: divLogin
+  })
+}
 
 changeState() {
     const { login } = this.state;
@@ -38,10 +51,10 @@ render() {
   return (
     <Router>
         <div className="App">
-          <div className="login">
+          <div className="login" style={{display: this.state.divLoginDisplay}}>
             <div className="container" ref={ref => (this.container = ref)}>
             {login && (
-                <UserLogin containerRef={ref => (this.curr = ref)} />
+                <UserLogin containerRef={ref => (this.curr = ref)} loginSuccessHandler={this.toggleDivViz}/>
               )}
             {!login && (
                 <Register containerRef={ref => (this.curr = ref)} />
@@ -55,8 +68,11 @@ render() {
           />
           </div>
         </div>
-        </Router>
 
+        <div style={{display: this.state.divLandingDisplay}}>
+          <Flood />
+        </div>
+        </Router>
   );
 }
 }

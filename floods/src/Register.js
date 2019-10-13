@@ -1,6 +1,6 @@
 import React from 'react';
 import './style.scss';
-import LoginImage from './LoginImage.png'
+import LoginImage from './Sign.png'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 
@@ -48,26 +48,26 @@ class Register extends React.Component {
 render() {
 	return (
 		<div className = 'outer-container' ref={this.props.containerRef}> 
-			<div className = 'header'> Register </div>
+			<div className = 'header' style={{fontSize:'50px', fontWeight:'bold'}}> REGISTER </div>
       <div className="content">
       <div className="image">
               <img src={LoginImage} />
       </div>
 			<Form className = 'form'>
 				<Form.Group controlId="formBasicEmail" className = 'form-group'>
-          <Form.Label style={{marginTop: '90px'}}>Username</Form.Label>
+          <Form.Label style={{marginTop: '90px', fontWeight:'bold'}}>Username</Form.Label>
 					<Form.Text className="text-muted" htmlFor="username"></Form.Text>
-          <input type="text" value = {this.state.userName} name="username" placeholder="username" onChange={this.handleChange1}/>
+          <Form.Control type="email" value = {this.state.userName} placeholder="Username" onChange={this.handleChange1}/>
         </Form.Group>
         <Form.Group controlId="formBasicEmail" className = 'form-group'>
-        <Form.Label>Email Address</Form.Label>
+        <Form.Label style={{fontWeight:'bold'}}>Email Address</Form.Label>
         <Form.Text className="text-muted" htmlFor="email">We'll never share your email with anyone else.</Form.Text>
-          <input value = {this.state.email} type="text" value = {this.state.email} name="Email Address" placeholder="Email Address" onChange={this.handleChange2}/>
+        <Form.Control type="email" value = {this.state.email} placeholder="Email Address" onChange={this.handleChange2}/>
         </Form.Group>
         <Form.Group controlId="formBasicPassword" className = 'form-group'>
-        <Form.Label>Password</Form.Label>
+        <Form.Label style={{fontWeight:'bold'}}>Password</Form.Label>
         <Form.Text className="text-muted" htmlFor="password"></Form.Text>
-        	<input value = {this.state.password} type="password" value = {this.state.password} name="password" placeholder="password" onChange={this.handleChange3} />
+        <Form.Control type="password" value = {this.state.password} placeholder="Password" onChange={this.handleChange3}/>
         </Form.Group>
 				</Form>
 			</div>

@@ -1,16 +1,16 @@
 import React from 'react';
 import './style.scss';
-import LoginImage from './LoginImage.png'
+import LoginImage from './Sign.png'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-import {BrowserRouter as Router, Redirect} from 'react-router-dom'
+import {BrowserRouter as Router, Redirect, Route, withRouter} from 'react-router-dom'
 //import Logfailed from './Logfailed'
 import Flood from './Flood'
 
 class UserLogin extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {userName:'', password:'', act:'l', flag:0, txt:''};
+    this.state = {userName:'', password:'', act:'l', flag:0, txt:'', redir:'false'};
     this.handleChange1 = this.handleChange1.bind(this);
     this.handleChange2 = this.handleChange2.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -31,17 +31,20 @@ class UserLogin extends React.Component {
    		});
    		const json = await response.json();
       if(json['Result'] === 1) {
-        this.setState({flag: 1, txt:''});
+        console.log(json['Cookie']);
+        let path = `Flood`;
+        this.props.history.push(path)
+        this.setState({flag: 1, txt:'', redir:'true'});
+        this.props.loginSuccessHandler()
       }
       else {
          this.setState({flag:2, txt:'Wrong username and Password'}); 
       }
    		console.log('Success', JSON.stringify(json));
-      console.log(json['Cookie']);
+      //console.log(json['Cookie']);
    	} catch (error) {
    		console.error('Error', error);
    	}
-  
  }
 
  handleChange1(e) {
@@ -53,28 +56,27 @@ class UserLogin extends React.Component {
  
 
 render() {
-  if (this.state.flag === 1) {
-    console.log("KKKK")
-        return <Redirect to='/Flood' />
-    }
-	return (
-		<div className = 'outer-container' ref={this.props.containerRef}> 
-			<div className = 'header'> Login </div>
+  console.log("ll "+this.state.redir)
+    // if(this.state.redir === 'true') {
+    //   return <Redirect to='/Flood'/>;
+    // }
+	return ( 
+		  <div className = 'outer-container' ref={this.props.containerRef}> 
+			<div className = 'header' style={{fontSize:'50px', fontWeight:'bold'}}> LOGIN </div>
 			<div className="content">
       <div className="image">
               <img src={LoginImage} />
       </div>
-
 			<Form className = 'form'>
         <Form.Group controlId="formBasicEmail" className = 'form-group'>
-          <Form.Label style={{marginTop: '90px'}}>Username</Form.Label>
+          <Form.Label style={{marginTop: '90px', fontWeight:'bold'}}>Username</Form.Label>
           <Form.Text className="text-muted" htmlFor="username"></Form.Text>
-          <input type="text" value = {this.state.userName} name="username" placeholder="username" onChange={this.handleChange1}/>
+          <Form.Control type="email" value = {this.state.userName} placeholder="Username" onChange={this.handleChange1}/>
         </Form.Group>
         <Form.Group controlId="formBasicPassword" className = 'form-group'>
-        <Form.Label>Password</Form.Label>
+        <Form.Label style={{fontWeight:'bold'}}>Password</Form.Label>
         <Form.Text className="text-muted" htmlFor="password"></Form.Text>
-          <input type="password" value = {this.state.password}  name="password" placeholder="password" onChange={this.handleChange2} />
+        <Form.Control type="password" value = {this.state.password} placeholder="Password" onChange={this.handleChange2}/>
           <br></br>
           <span>{this.state.txt}</span>
         </Form.Group>
@@ -90,4 +92,4 @@ render() {
 }	
 }
 
-export default UserLogin;
+export default withRouter(UserLogin);
