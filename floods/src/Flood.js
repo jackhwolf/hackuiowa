@@ -39,6 +39,7 @@ class Flood extends React.Component {
    }
   	render() {
   		return (
+  			<>
   		<div className = "style1">
   		<Form className = 'form2'>
         <Form.Group controlId="formBasicEmail" className = 'form-group'>
@@ -48,10 +49,13 @@ class Flood extends React.Component {
           <Button variant="outline-primary" size="lg" onClick={this.handleClick1} className="btn" block>
             		Submit
           	</Button>
-          <Graph data={this.state.floodwatchResults['rainfall']}/>
         </Form.Group>
         </Form>
         </div>
+        <div styleName={{marginVertical: '0'}} className="Graphstyle">
+          	<Graph styleName={{marginVertical: '0'}} data={this.state.floodwatchResults['rainfall']}/>
+          </div>
+          </>
   			)}
 }
 

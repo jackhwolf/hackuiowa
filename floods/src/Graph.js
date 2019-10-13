@@ -24,7 +24,7 @@ export default class Graph extends React.Component {
     const BarSeries = useCanvas ? VerticalBarSeriesCanvas : VerticalBarSeries;
     return (
       <div>
-        <XYPlot xType="ordinal" width={300} height={300} xDistance={100}>
+        <XYPlot xType="ordinal" width={500} height={500} xDistance={100}>
           <VerticalGridLines />
           <HorizontalGridLines />
           <XAxis />
