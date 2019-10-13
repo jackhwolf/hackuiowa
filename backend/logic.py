@@ -69,7 +69,7 @@ class logic:
             s += _.format("lower")
         if m < 12:
             s += f"However, there will only be a total of {m} inches "
-            s += "of rain this week, so there is no flood risk"
+            s += "of rain this week, so there is no flood risk anyways"
         else:
             s += f"This week there will be a total of {m} inches "
             s += "of rain, so watch out"
