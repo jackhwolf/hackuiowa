@@ -21,10 +21,11 @@ class logic:
         addr = addr.replace(' ', '%20')  # delim --> `space`
         maboxKey = os.environ.get('mapboxKey')
         url = f"https://api.mapbox.com/geocoding/v5/mapbox.places/{addr}.json?access_token={os.environ.get('mapboxKey')}"
+        r = requests.get(url).json()
         print()
         print(r)
         print()
-        r = requests.get(url).json()['features'][0]['center']
+        r = r['features'][0]['center']
         return r[::-1]
 
 
