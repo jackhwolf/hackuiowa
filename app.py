@@ -9,7 +9,3 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 app.config['SECRET_KEY'] = 'liuytvryuybindsty5ur6t7yu'
 
 app.register_blueprint(api.getapibp())
-
-@app.route('/landing')
-def landing():
-    return render_template('floods/public/index.html')
